@@ -42,12 +42,26 @@ const TodoProvider = ({ children }) => {
 
             default:
                 return state;
-            
-            break
 
         }
     }
+    // The state and methods , can be called from the shared components (children)
+    // Using  useReducer, it will combine the state and methods to be access from the children
+    const [state, dispatch] = useReducer(todoReducer, intialState);
+    return <TodoContext.Provider value={{state,dispatch}}>
+        {children}
+    </TodoContext.Provider>
 
 };
 
-export { TodoProvider };
+// Verification to ensure that state and dispatch is called within the Context
+
+const useTodo  = () => {
+    const context = useContext(TodoContext); //It is not called within <TodoContext.Provider>
+    if (!context){
+        throw new Error('useTodo must be called within TodoProvider')
+    }
+    return context
+}
+
+export { TodoProvider , useTodo};
