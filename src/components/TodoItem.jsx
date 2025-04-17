@@ -1,9 +1,9 @@
 import React from 'react'
 
-const TodoItem = () => {
+const TodoItem = ({item}) => {
   return (
     <div>
-        <p>Learn React <button>Delete</button></p>
+        <p>{item.name} <button>Delete</button></p>
     </div>
   )
 }
